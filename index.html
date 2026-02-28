@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Noora - tehtävä 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGAATIO -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Tehtävä 1</a></li>
+            <li><a href="tehtävä2.html">Tehtävä 2</a></li>
+            <li><a href="tehtävä3.html">Tehtävä 3</a></li>
+        </ul>
+    </nav>
+
+    <!-- SISÄLTÖ -->
+   <div class="content">
+    <h1 id="otsikko"></h1>
+    <p id="kuvaus"></p>
+    <img id="kuva" width="300">
+
+    <h1 id="otsikko"></h1>
+    <p id="kuvaus"></p>
+    <img id="kuva" width="300">
+
+        <h2>Opintojakso</h2>
+    <p id="nimi"></p>
+    <p id="tunnus"></p>
+    <p id="opintopisteet"></p>
+
+    <h3>Sisältö</h3>
+    <ul id="sisalto"></ul>
+
+    <h2>Aiheet</h2>
+    <div id="tekniikat"></div>
+    </div>
+
+<script>
+    fetch("tehtävä1.json")
+    .then(response => response.json())
+    .then(data => {
+
+    // !-- YLÄOSA -->
+    document.getElementById("otsikko").textContent = data.otsikko;
+    document.getElementById("kuvaus").textContent = data.kuvaus;
+    document.getElementById("kuva").src = data.kuva;
+
+    // !-- OPINTOJAKSO -->
+    document.getElementById("nimi").textContent =
+      "Nimi: " + data.opintojakso.nimi;
+
+    document.getElementById("tunnus").textContent =
+      "Tunnus: " + data.opintojakso.tunnus;
+
+    document.getElementById("opintopisteet").textContent =
+      "Opintopisteet: " + data.opintojakso.opintopisteet;
+
+    // !-- LISTA -->
+    const sisaltoLista = document.getElementById("sisalto");
+
+    data.opintojakso.sisalto.forEach(asia => {
+      const li = document.createElement("li");
+      li.textContent = asia;
+      sisaltoLista.appendChild(li);
+    });
+
+    // !-- TEKNIIKAT -->
+    const tekniikatDiv = document.getElementById("tekniikat");
+
+    data.tekniikat.forEach(t => {
+      const p = document.createElement("p");
+
+      p.innerHTML =
+        "Aihe: " + t.aihe +
+        ' <a href="' + t.linkki + '" target="_blank">' +
+        t.linkki +
+        "</a>";
+
+      tekniikatDiv.appendChild(p);
+    });
+
+  })
+  .catch(error => console.error("Virhe:", error));
+</script>
+</body>
+</html>

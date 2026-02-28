@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Noora - tehtävä 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGAATIO -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Tehtävä 1</a></li>
+            <li><a href="tehtävä2.html">Tehtävä 2</a></li>
+            <li><a href="tehtävä3.html">Tehtävä 3</a></li>
+        </ul>
+    </nav>
+
+    <h1>Helsingin sää</h1>
+    <p id="saa"></p>
+    <p id="kuva2"></p>
+    <p id="lampo"></p>
+    <p id="tuuli"></p>
+    <p id="pilvet"></p>
+
+<!-- SÄÄN HAKUKOODI -->
+ <script>
+        let saaHelsinki;
+        function saa() {
+            fetch ('https://api.openweathermap.org/data/2.5/weather?id=658225&appid=665ecd56dfc08dbb50feb8b8f5034e28&lang=fi&units=metric')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (responseJson) {
+                    saakuva(responseJson);
+                })
+                .catch(function (error) {
+                    document.getElementById("saa").innerHTML = "Tietoa ei pystytä hakemaan";
+                });
+        }
+        function saakuva(obj) {
+            let saa = obj.weather[0].description;
+            let lampo = obj.main.temp;
+            let tuuli = obj.wind.speed;
+            let kuva = obj.weather[0].icon;
+            let kello = new Date().toLocaleTimeString();
+            let pilvet = obj.clouds.all;
+                   
+            document.getElementById("saa").innerHTML = "Sää: " + saa;
+            document.getElementById("lampo").innerHTML = "Lämpötila: " + lampo + "°C";
+            document.getElementById("tuuli").innerHTML = "Tuuli: " + tuuli + " m/s";
+            document.getElementById("pilvet").innerHTML = "Pilvet: " + pilvet + "%";
+            document.getElementById("kuva2").innerHTML = '<img src="https://openweathermap.org/img/wn/' + kuva + '@2x.png" alt="sääkuva">';
+            document.getElementById("saa").insertAdjacentHTML('afterend', '<p>Kello: ' + kello + '</p>');
+        }
+        // SIVUN LATAUS FETCH
+        window.addEventListener('DOMContentLoaded', saa);
+ </script>
+    
+</body>
+</html>

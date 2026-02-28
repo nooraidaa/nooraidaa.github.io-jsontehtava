@@ -1,0 +1,75 @@
+
+/* FONTTI */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #979191;
+    margin: 0;
+    padding: 20px;
+}
+
+/* NAVIGAATIO */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    background-color: rgb(18, 16, 54);
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: rgb(0, 0, 0);
+}
+
+/* POKEMON OTSIKKO */
+h1 {
+    font-size: 40px;
+    color: rgb(18, 16, 54);
+}
+
+/* INPUT */
+input {
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* NAPPI */
+button {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #9ec8ff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #9ec8ff;
+}
+
+/* POKEMON TIEDOT */
+#nimi {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* POKEMON KUVA */
+#kuva2 img {
+    margin-top: 15px;
+    width: 150px;
+}
+#saakuva {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+#saa img {
+    width: 20px; /* adjust as needed */
+    height: auto;
+}

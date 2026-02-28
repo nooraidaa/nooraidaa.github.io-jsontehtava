@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Noora - tehtävä 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGAATIO -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Tehtävä 1</a></li>
+            <li><a href="tehtävä2.html">Tehtävä 2</a></li>
+            <li><a href="tehtävä3.html">Tehtävä 3</a></li>
+        </ul>
+    </nav>
+    <!-- POKEMON OTSIKKO JA NAPPI -->
+    <h1>Pokemon haku</h1>
+        <p>
+            <input type="text" id="pokemonName" placeholder="Enter Pokemon name">
+            <button onclick="poke()">Hae</button><br>
+
+        <div id="nimi">Kirjoita laatikkoon Pokemonin nimi</div>
+        <p id="kuva2"></p>     
+
+    <!-- POKEMON HAKUKOODI -->
+    <script>
+        let backKuva;
+        function poke() {
+            const pokeName = document.getElementById("pokemonName").value.toLowerCase();
+            let name = document.getElementById("pokemonName").value;
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (responseJson) {
+                    pokekuva(responseJson);
+                })
+                .catch(function (error) {
+                    document.getElementById("vastaus").innerHTML = "Tietoa ei pystytä hakemaan";
+                }); 
+        }
+            function pokekuva(obj) {
+                let kuva = obj.sprites.front_default;
+                backKuva = obj.sprites.back_default;
+                let nimi = obj.name;
+                let pituus = obj.height;
+                let paino = obj.weight;
+                let baseExp = obj.base_experience;
+                document.getElementById("kuva2").innerHTML = `<img src="${kuva}" alt="${nimi}">`;
+                document.getElementById("nimi").innerHTML = `Nimi: ${nimi} <br> Pituus: ${pituus} <br> Paino: ${paino} <br> Base Experience: ${baseExp}`;
+                document.getElementById("kuva2").innerHTML += `<button onclick="changeToBack()">Show Back</button>`;
+            }
+            function changeToBack() {
+                document.querySelector("#kuva2 img").src = backKuva;
+            }
+    </script>
+</body>
+</html>
